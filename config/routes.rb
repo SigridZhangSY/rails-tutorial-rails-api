@@ -1,7 +1,7 @@
 RailsApi::Application.routes.draw do
 
-  namespace :api, defaults: { format: :json },
-  constraints: { subdomain: 'api'}, path: '/' do
+  namespace :api, defaults: {format: :json},
+                              constraints: {subdomain: 'api'}, path: '/' do
 
   end
 
@@ -45,7 +45,7 @@ RailsApi::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
