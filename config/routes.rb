@@ -1,10 +1,10 @@
 RailsApi::Application.routes.draw do
 
   devise_for :users
-  namespace :api, defaults: {format: :json},
-                              constraints: {subdomain: 'api'}, path: '/' do
-
-  end
+  # namespace :api, defaults: {format: :json},
+  #           constraints: {subdomain: 'api'}, path: '/' do
+    resources :users, :only => [:show]
+  # end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
