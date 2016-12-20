@@ -77,4 +77,25 @@ describe ProductsController do
 
     it { should respond_with 400 }
   end
+
+  describe 'PUT #update' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      @product = FactoryGirl.create :product, user: @user
+    end
+
+    context "when is successfully updated" do
+      before(:each) do
+        patch :update, { user_id: @user.id, id: @product.id,
+                         product: { title: "An expensive TV" } }
+      end
+
+      it "renders the json representation for the updated user" do
+        product_response = json_response
+        expect(product_response[:title]).to eql "An expensive TV"
+      end
+
+      it { should respond_with 200 }
+    end
+  end
 end

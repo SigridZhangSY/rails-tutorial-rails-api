@@ -23,8 +23,15 @@ class ProductsController < ApplicationController
       product_url = Hash[:user_id => product[:user_id], :id => product[:id]]
       render json: product, status: 201, location: user_product_url(product_url)
     else
-      render json: { errors: product.errors}, status: 400
+      render json: {errors: product.errors}, status: 400
     end
+  end
+
+  def update
+    user = User.find(params[:user_id])
+    product = user.product.find(params[:id])
+    product.update(product_params)
+    render json: product, status: 200
   end
 
   private

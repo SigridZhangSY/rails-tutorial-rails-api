@@ -6,7 +6,7 @@ RailsApi::Application.routes.draw do
   #           constraints: {subdomain: 'api'}, path: '/' do
   resources :users, :only => [:show, :create, :update, :destroy] do
 
-    resources :products, :only => [:show, :index, :create]
+    resources :products, :only => [:show, :index, :create, :update]
 
   end
   # end
