@@ -4,7 +4,8 @@ RailsApi::Application.routes.draw do
   devise_for :users
   # namespace :api, defaults: {format: :json},
   #           constraints: {subdomain: 'api'}, path: '/' do
-    resources :users, :only => [:show, :create, :update, :destroy]
+  resources :users, :only => [:show, :create, :update, :destroy]
+  resources :products, :only => [:show]
   # end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -58,7 +59,7 @@ RailsApi::Application.routes.draw do
   # Example resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  #     # (app/controllers/admin/products.rb)
   #     resources :products
   #   end
 end
