@@ -14,4 +14,20 @@ describe User, type: :model do
   it { should validate_confirmation_of(:password) }
   it { should allow_value('example@domain.com').for(:email) }
   it { should have_many(:products) }
+
+  describe "#products association" do
+
+    before do
+      @user.save
+      3.times { FactoryGirl.create :product, user: @user }
+    end
+
+    it "destroys the associated products on self destruct" do
+      products = @user.products
+      @user.destroy
+      products.each do |product|
+        expect(Product.find(product)).to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+  end
 end
