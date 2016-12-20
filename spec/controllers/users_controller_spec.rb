@@ -8,7 +8,7 @@ describe UsersController do
     end
 
     it "returns the information about a reporter on a hash" do
-      user_response = JSON.parse(response.body, symbolize_names: true)
+      user_response = json_response
       expect(user_response[:email]).to eql @user.email
     end
 
@@ -23,7 +23,7 @@ describe UsersController do
       end
 
       it "renders the json representation for the user record just created" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response[:email]).to eql @user_attributes[:email]
         expect(response.headers['Location']).to end_with('users/1')
       end
@@ -39,7 +39,7 @@ describe UsersController do
       end
 
       it "renders an error json" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response).to have_key(:errors)
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
@@ -60,8 +60,8 @@ describe UsersController do
       end
 
       it 'should render the json representation for the updated user' do
-        user_response = JSON.parse(response.body, symbolizenames: true)
-        expect(user_response['email']).to eql 'new@test.com'
+        user_response = json_response
+        expect(user_response[:email]).to eql 'new@test.com'
       end
 
       it { should respond_with 200 }
@@ -75,7 +75,7 @@ describe UsersController do
       end
 
       it "renders an errors json" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response).to have_key(:errors)
         expect(user_response[:errors][:email]).to include "is invalid"
       end
@@ -85,11 +85,23 @@ describe UsersController do
   end
 
   describe "DELETE #destroy" do
-    before(:each) do
-      @user = FactoryGirl.create :user
-      delete :destroy, { id: @user.id}, format: :json
+    context 'delete successfully' do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        delete :destroy, { id: @user.id}, format: :json
+      end
+
+      it { should respond_with 204}
     end
 
-    it { should respond_with 204}
+    # context 'delete not existed user' do
+    #   before(:each) do
+    #     @user = FactoryGirl.create :user
+    #     delete :destroy, { id: @user.id+1}, format: :json
+    #   end
+    #
+    #   it { should respond_with 400}
+    # end
+
   end
 end
