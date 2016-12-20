@@ -19,6 +19,8 @@ class UsersController < ApplicationController
 
     if user.update(user_params)
       render json: user, status: 200, location: user_url(user)
+    else
+      render json: { errors: user.errors }, status: 422
     end
   end
 
