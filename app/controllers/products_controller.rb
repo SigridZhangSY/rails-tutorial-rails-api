@@ -17,14 +17,18 @@ class ProductsController < ApplicationController
   def create
     user = User.find(params[:user_id])
     product = user.product.build(product_params)
-    product.save
-    puts 'ssss'
-    product_url = Hash[:user_id => product[:user_id], :id => product[:id]]
-    render json: product, status: 201, location: user_product_url(product_url)
+
+    if product.save
+      puts 'ssss'
+      product_url = Hash[:user_id => product[:user_id], :id => product[:id]]
+      render json: product, status: 201, location: user_product_url(product_url)
+    else
+      render json: { errors: product.errors}, status: 400
+    end
   end
 
   private
-    def product_params
-      params.require(:product).permit(:title, :price, :published)
-    end
+  def product_params
+    params.require(:product).permit(:title, :price, :published)
+  end
 end

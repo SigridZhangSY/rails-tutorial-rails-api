@@ -61,4 +61,20 @@ describe ProductsController do
       it { should respond_with 201}
     end
   end
+
+  context "when created failed" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      @invalid_product_attributes = { title: "Smart TV", price: "Twelve dollars" }
+      post :create, user_id: @user.id, product: @invalid_product_attributes
+    end
+
+    it "renders an errors json" do
+      product_response = json_response
+      expect(product_response).to have_key(:errors)
+      expect(product_response[:errors][:price]).to include "is not a number"
+    end
+
+    it { should respond_with 400 }
+  end
 end
