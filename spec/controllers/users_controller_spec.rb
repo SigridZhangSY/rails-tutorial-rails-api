@@ -30,5 +30,22 @@ describe UsersController do
 
       it { should respond_with 201 }
     end
+
+    context "when is not created" do
+      before(:each) do
+        @invalid_user_attributes = {password: "12345678",
+                                    password_confirmation: "12345678"}
+        post :create, {user: @invalid_user_attributes }, format: :json
+      end
+
+      it "renders an error json" do
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response).to have_key(:errors)
+        expect(user_response[:errors][:email]).to include "can't be blank"
+        print user_response
+      end
+
+      it { should respond_with 422 }
+    end
   end
 end

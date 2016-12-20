@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       render json: user, status: 201, location: user_url(user)
+    else
+      render json: { errors: user.errors }, status: 422
     end
   end
 
