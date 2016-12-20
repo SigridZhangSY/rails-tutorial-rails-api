@@ -97,5 +97,20 @@ describe ProductsController do
 
       it { should respond_with 200 }
     end
+
+    context "when is not updated" do
+      before(:each) do
+        patch :update, { user_id: @user.id, id: @product.id,
+                         product: { price: "two hundred" } }
+      end
+
+      it "renders an errors json" do
+        product_response = json_response
+        expect(product_response).to have_key(:errors)
+        expect(product_response[:errors][:price]).to include "is not a number"
+      end
+
+      it { should respond_with 400 }
+    end
   end
 end

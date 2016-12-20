@@ -30,8 +30,11 @@ class ProductsController < ApplicationController
   def update
     user = User.find(params[:user_id])
     product = user.product.find(params[:id])
-    product.update(product_params)
-    render json: product, status: 200
+    if product.update(product_params)
+      render json: product, status: 200
+    else
+      render json: {errors: product.errors}, status: 400
+    end
   end
 
   private
