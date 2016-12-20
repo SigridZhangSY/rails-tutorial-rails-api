@@ -5,7 +5,8 @@ describe ProductsController do
     context 'get product successfully' do
       before(:each) do
         @product = FactoryGirl.create :product
-        get :show, id: @product.id
+        user = FactoryGirl.create :user
+        get :show, user_id:user.id,  id: @product.id
       end
 
       it "return information about a product" do
@@ -19,7 +20,8 @@ describe ProductsController do
     context 'get product failed' do
       before(:each) do
         @product = FactoryGirl.create :product
-        get :show, id: @product.id+1
+        user = FactoryGirl.create :user
+        get :show, user_id:user.id, id: @product.id+1
       end
 
       it {should respond_with 200}
@@ -29,7 +31,8 @@ describe ProductsController do
   describe 'GET #index' do
     before(:each) do
       4.times { FactoryGirl.create :product }
-      get :index
+      user = FactoryGirl.create :user
+      get :index, user_id:user.id
     end
 
     it "returns 4 records from the database" do

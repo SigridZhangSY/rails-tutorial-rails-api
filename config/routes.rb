@@ -4,8 +4,11 @@ RailsApi::Application.routes.draw do
   devise_for :users
   # namespace :api, defaults: {format: :json},
   #           constraints: {subdomain: 'api'}, path: '/' do
-  resources :users, :only => [:show, :create, :update, :destroy]
-  resources :products, :only => [:show, :index]
+  resources :users, :only => [:show, :create, :update, :destroy] do
+
+    resources :products, :only => [:show, :index, :create]
+
+  end
   # end
 
   # The priority is based upon order of creation: first created -> highest priority.
