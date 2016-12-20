@@ -13,7 +13,7 @@ describe User, type: :model do
   # it { should validate_uniqueness_of(:email) }
   it { should validate_confirmation_of(:password) }
   it { should allow_value('example@domain.com').for(:email) }
-  it { should have_many(:products) }
+  it { should have_many(:product) }
 
   describe "#products association" do
 
@@ -23,7 +23,7 @@ describe User, type: :model do
     end
 
     it "destroys the associated products on self destruct" do
-      products = @user.products
+      products = @user.product
       @user.destroy
       products.each do |product|
         expect(Product.find(product)).to raise_error ActiveRecord::RecordNotFound

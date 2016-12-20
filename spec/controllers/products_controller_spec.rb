@@ -41,6 +41,24 @@ describe ProductsController do
     end
 
     it { should respond_with 200 }
+  end
 
+
+  describe 'POST #create' do
+    context "when is successfully" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        @product_attributes = FactoryGirl.attributes_for :product
+        post :create, user_id: @user.id, product: @product_attributes
+      end
+
+      it 'return created product record' do
+        product_response = json_response
+        expect(product_response[:title]).to eql @product_attributes[:title]
+        expect(response.headers['Location']).to end_with('users/' + @user.id.to_s + '/products/1')
+      end
+
+      it { should respond_with 201}
+    end
   end
 end
