@@ -5,7 +5,7 @@ RailsApi::Application.routes.draw do
   # namespace :api, defaults: {format: :json},
   #           constraints: {subdomain: 'api'}, path: '/' do
   resources :users, :only => [:show, :create, :update, :destroy]
-  resources :products, :only => [:show]
+  resources :products, :only => [:show, :index]
   # end
 
   # The priority is based upon order of creation: first created -> highest priority.

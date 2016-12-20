@@ -9,4 +9,8 @@ class ProductsController < ApplicationController
       return product
     end
   end
+
+  def index
+    respond_with Product.all
+  end
 end
