@@ -15,6 +15,14 @@ describe ProductsController do
 
       it {should respond_with 200}
     end
-  end
 
+    context 'get product failed' do
+      before(:each) do
+        @product = FactoryGirl.create :product
+        get :show, id: @product.id+1
+      end
+
+      it {should respond_with 200}
+    end
+  end
 end
