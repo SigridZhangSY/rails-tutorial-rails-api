@@ -37,6 +37,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find(params[:user_id])
+    product = user.product.find(params[:id])
+    product.destroy
+    head 204
+  end
+
   private
   def product_params
     params.require(:product).permit(:title, :price, :published)

@@ -113,4 +113,14 @@ describe ProductsController do
       it { should respond_with 400 }
     end
   end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      @product = FactoryGirl.create :product, user: @user
+      delete :destroy, { user_id: @user.id, id: @product.id }
+    end
+
+    it { should respond_with 204 }
+  end
 end
