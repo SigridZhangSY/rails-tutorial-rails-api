@@ -25,6 +25,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:total, :user_id, :product_ids => [])
+    params.require(:order).permit(:product_ids => [])
   end
 end

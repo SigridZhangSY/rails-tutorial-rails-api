@@ -38,7 +38,7 @@ describe OrdersController do
 
       product_1 = FactoryGirl.create :product
       product_2 = FactoryGirl.create :product
-      order_params = { total: 50, user_id: current_user.id, product_ids: [product_1.id, product_2.id] }
+      order_params = { product_ids: [product_1.id, product_2.id] }
       post :create, user_id: current_user.id, order: order_params
     end
 
