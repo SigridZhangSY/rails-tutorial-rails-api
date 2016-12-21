@@ -41,4 +41,20 @@ describe Order do
       expect{order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)}.to change{order.placements.size}.from(0).to(2)
     end
   end
+
+  describe "#valid" do
+    before do
+      product = FactoryGirl.create :product, price: 100, quantity: 5
+
+      placement = FactoryGirl.build :placement, product: product, quantity: 6
+
+      @order = FactoryGirl.build :order
+
+      @order.placements << placement
+    end
+
+    it "becomes invalid due to insufficient products" do
+      expect(@order).to_not be_valid
+    end
+  end
 end
