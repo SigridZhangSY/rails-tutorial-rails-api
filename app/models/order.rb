@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   before_validation :set_total!
 
   validates :total, presence: true,
-            numericality: { greater_than_or_equal_to: 0 }
+            numericality: {greater_than_or_equal_to: 0}
 
   validates :user_id, presence: true
   validates_with EnoughProductsValidator
@@ -13,7 +13,10 @@ class Order < ActiveRecord::Base
   has_many :product, through: :placements
 
   def set_total!
-    self.total = product.map(&:price).sum
+    self.total = 0
+    placements.each do |placement|
+      self.total += placement.product.price * placement.quantity
+    end
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)
