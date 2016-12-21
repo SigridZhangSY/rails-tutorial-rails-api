@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :product, dependent: :destroy
   accepts_nested_attributes_for :product
+  has_many :orders, dependent: :destroy
 end

@@ -14,6 +14,7 @@ describe User, type: :model do
   it { should validate_confirmation_of(:password) }
   it { should allow_value('example@domain.com').for(:email) }
   it { should have_many(:product) }
+  it { should have_many(:orders) }
 
   describe "#products association" do
 
