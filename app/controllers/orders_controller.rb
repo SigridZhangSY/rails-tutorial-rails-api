@@ -14,9 +14,12 @@ class OrdersController < ApplicationController
   def create
     user = User.find(params[:user_id])
     order = user.orders.build(order_params)
-    order.save
-    order_url = Hash[:user_id => order[:user_id], :id => order[:id]]
-    render json: order, status: 201, location: user_order_url(order_url)
+    if order.save
+      order_url = Hash[:user_id => order[:user_id], :id => order[:id]]
+      render json: order, status: 201, location: user_order_url(order_url)
+    else
+      render json: { errors: order.errors }, status: 400
+    end
   end
 
   private
