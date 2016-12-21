@@ -15,8 +15,10 @@ class OrdersController < ApplicationController
     user = User.find(params[:user_id])
     order = user.orders.build
     order.build_placements_with_product_ids_and_quantities(params[:order][:product_ids_and_quantities])
+    puts 'ddd'
+    puts order.total
     if order.save
-      order.reload
+      # order.reload
       order_url = Hash[:user_id => order[:user_id], :id => order[:id]]
       render json: order, status: 201, location: user_order_url(order_url)
     else
